@@ -19,6 +19,7 @@ class JogoDaMemoria {
         ]
         this.iconesOcultosCopia = []
         this.iconesClicados = []
+        this.iconesPares = []
     }
 
     inicializar() {
@@ -51,6 +52,9 @@ class JogoDaMemoria {
             const iconesClicados = this.iconesClicados.length
             switch (iconesClicados) {
                 case 0:
+                    if (this.iconesPares.includes(nome)) {
+                        return
+                    }
                     this.iconesClicados.push(item)
                     this.mostrariconesOcultosCopia(item.id, item.nome, jogada = 0)
                     break;
@@ -63,7 +67,9 @@ class JogoDaMemoria {
                     }
                     else if (opcao1.nome === item.nome && opcao1.id !== id) {
                         //this.exibirIcones(item.nome)
-                        this.mostrariconesOcultosCopia(item.id, item.nome, jogada)
+                        this.iconesPares.push(item.nome)
+                        console.log(this.iconesPares)
+                        this.mostrariconesOcultosCopia(item.id, item.nome, jogada = 0)
                         acertos++
                         if (acertos === 10) {
                             podeJogar = false
@@ -90,7 +96,7 @@ class JogoDaMemoria {
                 icone.img = img
                 if (par) {
                     icone.img = this.iconePadrao
-                    jogada = 0
+                    //jogada = 0
                 }
             }
         }
@@ -106,6 +112,7 @@ class JogoDaMemoria {
             .sort(() => Math.random() - 0.5)
 
         this.tela.atualizarIcones(copias)
+        this.iconesPares = []
         acertos = 0
         podeJogar = false
         segundos = 0
