@@ -1,7 +1,8 @@
 ## Memory Game
 https://lbmle.github.io/memorygame/
 
-![image](https://github.com/lbmle/memorygame/assets/56726720/347d4dad-6ec0-4351-bc4b-bb6d187f1a69)
+![memorygame](https://github.com/lbmle/memorygame/assets/56726720/2630444d-f21d-4a32-80e5-db5f638f7b81)
+
 
 ### Objetivo do projeto
 
@@ -27,4 +28,4 @@ https://lbmle.github.io/memorygame/
 - Clone este repositório em sua máquina.
 - Abra o arquivo `index.html` no navegador.
 - Clique nos ícones para achar os pares.
-- Cada par encontrado extende 5 segundos do tempo limite.
+- Cada par encontrado extende 3 segundos do tempo limite.
