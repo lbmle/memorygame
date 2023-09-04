@@ -1,12 +1,13 @@
 ## Memory Game
 https://lbmle.github.io/memorygame/
 
-![memorygame](https://github.com/lbmle/memorygame/assets/56726720/2630444d-f21d-4a32-80e5-db5f638f7b81)
+![memorygame](https://github.com/lbmle/memorygame/assets/56726720/d0cf78d6-1629-49e5-98b3-8369456668bb)
+
 
 
 ### Objetivo do projeto
 
-** Exercitar lógica de programação: **
+**Exercitar lógica de programação:**
 - arrays
 - objetos
 - funções
