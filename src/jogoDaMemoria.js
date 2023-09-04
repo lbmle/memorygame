@@ -5,18 +5,6 @@ class JogoDaMemoria {
         this.util = util
 
         this.iconePadrao = './icones/default.gif'
-        this.iconesIniciais = [
-            { img: './icones/1.gif', nome: '1' },
-            { img: './icones/2.gif', nome: '2' },
-            { img: './icones/3.gif', nome: '3' },
-            { img: './icones/4.gif', nome: '4' },
-            { img: './icones/5.gif', nome: '5' },
-            { img: './icones/6.gif', nome: '6' },
-            { img: './icones/7.gif', nome: '7' },
-            { img: './icones/8.gif', nome: '8' },
-            { img: './icones/9.gif', nome: '9' },
-            { img: './icones/10.gif', nome: '10' },
-        ]
         this.iconesOcultosCopia = []
         this.iconesClicados = []
         this.iconesPares = []
@@ -25,10 +13,12 @@ class JogoDaMemoria {
         this.acertos
         this.podeJogar
         this.deNovo = true
+        this.path = "1"
+        this.nivel = 1
     }
 
     inicializar() {
-        this.tela.atualizarIcones(this.iconesIniciais)
+        this.tela.atualizarIcones(this.path, iconesIniciais)
         this.tela.configurarBotaoJogar(this.jogar.bind(this))
         this.tela.configurarClique(this.verificarClique.bind(this))
     }
@@ -39,7 +29,7 @@ class JogoDaMemoria {
             nome,
             img: this.iconePadrao
         }))
-        this.tela.atualizarIcones(iconesOcultos)
+        this.tela.atualizarIcones(this.path, iconesOcultos)
         this.iconesOcultosCopia = iconesOcultos
     }
 
@@ -75,8 +65,17 @@ class JogoDaMemoria {
                         this.mostrariconesOcultosCopia(item.id, item.nome, 0)
                         this.acertos++
                         if (this.acertos === 10) {
-                            this.podeJogar = false
-                            this.tela.pararContador("VOCÊ VENCEU!")
+                            this.nivel++
+                            if (this.nivel === 9) {
+                                this.nivel = 1
+                                this.path = this.nivel.toString()
+                                this.podeJogar = false
+                                this.deNovo = true
+                                inicio = 0
+                                this.tela.pararContador("FIM")
+                            }
+                            this.tela.pararContador("PASSOU!")
+                            this.path = this.nivel.toString()
                             this.deNovo = true
                             return
                         }
@@ -96,7 +95,7 @@ class JogoDaMemoria {
     mostrariconesOcultosCopia(id, nome, par) {
         const iconesExibidos = this.iconesOcultosCopia
         for (const icone of iconesExibidos) {
-            const { img } = this.iconesIniciais.find(item => item.nome === icone.nome)
+            const { img } = iconesIniciais.find(item => item.nome === icone.nome)
             if (icone.nome === nome && icone.id == id) {
                 icone.img = img
                 if (par === 1) {
@@ -107,18 +106,19 @@ class JogoDaMemoria {
                 }
             }
         }
-        this.tela.atualizarIcones(iconesExibidos)
+        this.tela.atualizarIcones(this.path, iconesExibidos)
     }
 
     async embaralhar() {
-        const copias = this.iconesIniciais
-            .concat(this.iconesIniciais)
+        this.tela.atualizarIcones(this.path, iconesIniciais)
+        const copias = iconesIniciais
+            .concat(iconesIniciais)
             .map((item) => {
                 return Object.assign({}, item, { id: (Math.random() / 0.5) })
             })
             .sort(() => Math.random() - 0.5)
 
-        this.tela.atualizarIcones(copias)
+        this.tela.atualizarIcones(this.path, copias)
         this.iconesPares = []
         this.acertos = 0
         this.podeJogar = false
@@ -138,6 +138,7 @@ class JogoDaMemoria {
     }
 
     jogar() {
+        inicio = 1
         if (this.deNovo)
             this.embaralhar()
     }
